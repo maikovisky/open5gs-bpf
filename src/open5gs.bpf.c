@@ -46,18 +46,32 @@ int tc_ingress(struct __sk_buff *skb)
         case ETH_P_IP:
 		CAST_ADVANCE_CHECKED(struct iphdr, iph, cursor, data_end);
 		ip_proto = iph->protocol;
+		bpf_printk("Received IPv4 data packet!\n");
 		break;
 
         case ETH_P_IPV6:
             CAST_ADVANCE_CHECKED(struct ipv6hdr, ipv6h, cursor, data_end);
             ip_proto = ipv6h->nexthdr;
+			bpf_printk("Received IPv6 data packet!\n");
             break;
 
         default:
             return 0;
     }
 
+	
     if (ip_proto != IPPROTO_SCTP)
+		
+		switch(ip_proto){
+			IPPROTO_TCP:
+				bpf_printk("Received TCP data packet!\n");
+				break;
+			IPPROTO_UDP:
+				bpf_printk("Received UDP data packet!\n");
+				break;
+			default:
+				bpf_printk("Received %d data packet!\n", ip_proto);
+		}
 		return 0;
 
 	bpf_printk("SCTP data packet: %d", ++sctp_counter);

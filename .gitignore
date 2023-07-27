@@ -2,10 +2,4 @@
 /examples/c/build
 /examples/c/.xmake
 /.idea
-vmlinux/arm/vmlinux.h
-vmlinux/arm64/vmlinux.h
-vmlinux/loongarch/vmlinux.h
-vmlinux/powerpc/vmlinux.h
-vmlinux/riscv/vmlinux.h
-vmlinux/vmlinux.h
-vmlinux/x86/vmlinux.h
+
