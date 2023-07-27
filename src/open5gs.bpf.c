@@ -60,8 +60,7 @@ int tc_ingress(struct __sk_buff *skb)
     if (ip_proto != IPPROTO_SCTP)
 		return 0;
 
-	sctp_counter++;
-	bpf_printk("SCTP data packet: %d", sctp_counter++);
+	bpf_printk("SCTP data packet: %d", ++sctp_counter);
 
     CAST_ADVANCE_CHECKED(struct sctphdr, sctph, cursor, data_end);
 
