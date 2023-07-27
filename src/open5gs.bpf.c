@@ -60,19 +60,20 @@ int tc_ingress(struct __sk_buff *skb)
     }
 
 	
-    if (ip_proto != IPPROTO_SCTP)
+    if (ip_proto != IPPROTO_SCTP) {
 		
 		switch(ip_proto){
-			IPPROTO_TCP:
+			case IPPROTO_TCP:
 				bpf_printk("Received TCP data packet!\n");
 				break;
-			IPPROTO_UDP:
+			case IPPROTO_UDP:
 				bpf_printk("Received UDP data packet!\n");
 				break;
 			default:
 				bpf_printk("Received %d data packet!\n", ip_proto);
 		}
 		return 0;
+	}
 
 	bpf_printk("SCTP data packet: %d", ++sctp_counter);
 
